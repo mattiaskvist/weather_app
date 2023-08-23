@@ -207,4 +207,33 @@ function getWeatherForecast(lat, lon) {
 var weatherButton = document.getElementById("forecastButton");
 weatherButton.addEventListener("click", function () {
     getWeatherForecast(lat, lng);
+    saveCoordinatesToLocalStorage(lat, lng); // Save coordinates to local storage
+});
+
+// Function to set the latitude and longitude in local storage
+function saveCoordinatesToLocalStorage(lat, lng) {
+    localStorage.setItem("selectedLat", lat);
+    localStorage.setItem("selectedLng", lng);
+}
+
+// Function to retrieve the latitude and longitude from local storage
+function getCoordinatesFromLocalStorage() {
+    var lat = localStorage.getItem("selectedLat");
+    var lng = localStorage.getItem("selectedLng");
+    return { lat: lat, lng: lng };
+}
+
+// Check if coordinates are stored in local storage when the page loads
+window.addEventListener("load", function () {
+    var storedCoordinates = getCoordinatesFromLocalStorage();
+    if (storedCoordinates.lat && storedCoordinates.lng) {
+        lat = storedCoordinates.lat;
+        lng = storedCoordinates.lng;
+        // Set map center and fetch weather forecast
+        map.setView([lat, lng], 13);
+        getWeatherForecast(lat, lng);
+        // Update coordinates and marker
+        marker.setLatLng([lat, lng]);
+        updateLatLng();
+    }
 });
