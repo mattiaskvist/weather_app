@@ -7,37 +7,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 
+    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 
 <body>
     <div class="container">
+        <!-- Map container -->
         <div id="map"></div>
 
+        <!-- Search input and buttons -->
         <div class="search">
             <input type="text" id="locationInput" placeholder="Search for a location">
             <button id="searchButton">Search</button>
             <button id="currentLocationButton">Find My Location</button>
         </div>
+
+        <!-- Display latitude and longitude -->
         <div id="coordinates">
             <p id="lat"></p>
             <p id="lng"></p>
             <button id="forecastButton">Get Forecast For Coordinates</button>
         </div>
+
+        <!-- Weather forecast container -->
         <div class="forecast">
             <h2>Weather Forecast</h2>
             <div id="forecastContainer" class="forecast-container">
                 <!--Forecast items will be displayed here-->
                 <p>Click "Get Forecast For Coordinates" to get forecast</p>
             </div>
+            <!-- Link to GitHub repository -->
             <a href="https://github.com/mattiaskvist/weather_app" target="_blank">GitHub</a>
         </div>
     </div>
+    <!-- JavaScript file -->
     <script src="script.js"></script>
-
 </body>
 
 </html>

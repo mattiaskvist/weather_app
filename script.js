@@ -1,4 +1,6 @@
-// Initialize Leaflet map
+/**
+ * Initialize Leaflet map and marker
+ */
 var map = L.map('map').setView([59.03, 18.27], 9);
 var marker = L.marker([59.03, 18.27]).addTo(map);
 
@@ -12,7 +14,9 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-
+/**
+ * Listen for map click event to update marker position
+ */
 function onMapClick(e) {
     marker
         .setLatLng(e.latlng)
@@ -22,6 +26,9 @@ function onMapClick(e) {
     updateLatLng();
 }
 
+/**
+ * Function to update latitude and longitude display
+ */
 function updateLatLng() {
     lat = marker.getLatLng().lat.toFixed(6);
     lng = marker.getLatLng().lng.toFixed(6);
@@ -36,6 +43,9 @@ var locationInput = document.getElementById("locationInput");
 var searchButton = document.getElementById("searchButton");
 var currentLocationButton = document.getElementById("currentLocationButton");
 
+/**
+ * Handle search button click event to get location from input
+ */
 searchButton.addEventListener("click", function () {
     var locationName = locationInput.value;
     var url = "https://nominatim.openstreetmap.org/search?q=" + locationName + "&format=json&polygon=1&addressdetails=1";
@@ -62,7 +72,9 @@ searchButton.addEventListener("click", function () {
         );
 });
 
-// Get current location
+/**
+ * Handle current location button click event to get current location
+ */
 currentLocationButton.addEventListener("click", function () {
     map.locate({ setView: true, maxZoom: 15 });
     // set marker to current location
@@ -82,7 +94,9 @@ currentLocationButton.addEventListener("click", function () {
     );
 });
 
-
+/**
+ * Process weather forecast data and display in forecast boxes
+ */
 function processWeatherForecast(data) {
     var forecastContainer = document.getElementById("forecastContainer");
 
@@ -184,7 +198,9 @@ function processWeatherForecast(data) {
     forecastContainer.innerHTML += `<p> <a href="https://opendata.smhi.se/apidocs/metfcst/index.html" target="_blank">Source: SMHI Open Data API</a></p>`;
 }
 
-// Function to get weather forecast data from SMHI API
+/**
+ * Get weather forecast data from SMHI API
+ */
 function getWeatherForecast(lat, lon) {
     var apiUrl = `https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`;
 
@@ -210,20 +226,26 @@ weatherButton.addEventListener("click", function () {
     saveCoordinatesToLocalStorage(lat, lng); // Save coordinates to local storage
 });
 
-// Function to set the latitude and longitude in local storage
+/**
+ * Save coordinates to local storage
+ */
 function saveCoordinatesToLocalStorage(lat, lng) {
     localStorage.setItem("selectedLat", lat);
     localStorage.setItem("selectedLng", lng);
 }
 
-// Function to retrieve the latitude and longitude from local storage
+/**
+ * Retrieve coordinates from local storage
+ */
 function getCoordinatesFromLocalStorage() {
     var lat = localStorage.getItem("selectedLat");
     var lng = localStorage.getItem("selectedLng");
     return { lat: lat, lng: lng };
 }
 
-// Check if coordinates are stored in local storage when the page loads
+/**
+ * Check local storage for stored coordinates on page load
+ */
 window.addEventListener("load", function () {
     var storedCoordinates = getCoordinatesFromLocalStorage();
     if (storedCoordinates.lat && storedCoordinates.lng) {
