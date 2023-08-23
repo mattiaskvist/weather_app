@@ -86,10 +86,8 @@ currentLocationButton.addEventListener("click", function () {
 function processWeatherForecast(data) {
     var forecastContainer = document.getElementById("forecastContainer");
 
-    // Remove any existing forecast data and insert placeholder
-    forecastContainer.innerHTML = `<div class="forecast-box">
-                                    <p>Date Time - Temp - Wind Speed (Gust) - Wind Dir</p>
-                                </div>`;
+    // Remove any existing forecast data
+    forecastContainer.innerHTML = ""
 
     // Loop through each timeSeries object
     data.timeSeries.forEach(function (timeSeries) {
@@ -98,7 +96,7 @@ function processWeatherForecast(data) {
         var formattedValidTime = validTime.slice(0, -3);
 
         // Initialize variables to store extracted data
-        var temperature, windSpeed, windDirection, windGustSpeed;
+        var temperature, windSpeed, windDirectionDeg, windGustSpeed, weatherSymbol;
 
         // Loop through the parameters to find the ones we want
         timeSeries.parameters.forEach(function (parameter) {
@@ -110,10 +108,13 @@ function processWeatherForecast(data) {
                     windSpeed = parameter.values[0];
                     break;
                 case "wd":
-                    windDirection = parameter.values[0];
+                    windDirectionDeg = parameter.values[0];
                     break;
                 case "gust":
                     windGustSpeed = parameter.values[0];
+                    break;
+                case "Wsymb2":
+                    weatherSymbol = parameter.values[0];
                     break;
                 default:
                     // Handle other parameters here
@@ -121,11 +122,41 @@ function processWeatherForecast(data) {
             }
         });
 
+        // Convert wind direction from degrees to text
+        var windDirectionText;
+        if (windDirectionDeg >= 0 && windDirectionDeg <= 22.5) {
+            windDirectionText = "N";
+        } else if (windDirectionDeg > 22.5 && windDirectionDeg <= 67.5) {
+            windDirectionText = "NE";
+        } else if (windDirectionDeg > 67.5 && windDirectionDeg <= 112.5) {
+            windDirectionText = "E";
+        } else if (windDirectionDeg > 112.5 && windDirectionDeg <= 157.5) {
+            windDirectionText = "SE";
+        } else if (windDirectionDeg > 157.5 && windDirectionDeg <= 202.5) {
+            windDirectionText = "S";
+        } else if (windDirectionDeg > 202.5 && windDirectionDeg <= 247.5) {
+            windDirectionText = "SW";
+        } else if (windDirectionDeg > 247.5 && windDirectionDeg <= 292.5) {
+            windDirectionText = "W";
+        } else if (windDirectionDeg > 292.5 && windDirectionDeg <= 337.5) {
+            windDirectionText = "NW";
+        } else if (windDirectionDeg > 337.5 && windDirectionDeg <= 360) {
+            windDirectionText = "N";
+        } else {
+            windDirectionText = "Unknown";
+        }
+
         // Create a "box" for the forecast
         var box = document.createElement("div");
         box.classList.add("forecast-box");
         box.innerHTML = `
-            <p>${formattedValidTime} - ${temperature} °C - ${windSpeed} (${windGustSpeed}) m/s - ${windDirection}°</p>`;
+            <div class="forecast-content"> 
+            <p>${formattedValidTime}</p>
+            <p>Temp: ${temperature} °C</p>
+            <p>Wind Speed: ${windSpeed} (${windGustSpeed}) m/s</p>
+            <p>Wind Dir: ${windDirectionText} (${windDirectionDeg}°)</p>
+            </div>
+            <img src=img/${weatherSymbol}.png alt="Weather Symbol">`;
 
         // Append the "box" to the forecast container
         forecastContainer.appendChild(box);
@@ -135,7 +166,7 @@ function processWeatherForecast(data) {
     var lastUpdated = new Date(data.approvedTime).toLocaleString();
     var formattedLastUpdated = lastUpdated.slice(0, -3);
     forecastContainer.innerHTML += `<p>Last updated: ${formattedLastUpdated}</p>`;
-    forecastContainer.innerHTML += `<p>Source: SMHI Open Data API</p>`;
+    forecastContainer.innerHTML += `<p> <a href="https://opendata.smhi.se/apidocs/metfcst/index.html" target="_blank">Source: SMHI Open Data API</a></p>`;
 }
 
 // Function to get weather forecast data from SMHI API
