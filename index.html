@@ -19,16 +19,25 @@
 
         <div class="search">
             <input type="text" id="locationInput" placeholder="Search for a location">
-            <button id="locationButton">Search</button>
+            <button id="searchButton">Search</button>
+            <button id="currentLocationButton">Find My Location</button>
         </div>
-        <div id="coordinates"> 
+        <div id="coordinates">
             <p id="lat"></p>
             <p id="lng"></p>
             <button id="forecastButton">Get Forecast For Coordinates</button>
         </div>
-        <ul id="forecastList" class="forecast-list">
-            <!-- Forecast items will be added here-->
-        </ul>
+        <div class="forecast">
+            <h2>Weather Forecast</h2>
+            <div id="forecastContainer" class="forecast-container">
+                <!--Forecast items will be displayed here-->
+                <div class="forecast-box">
+                    <p>Date Time - Temp - Wind Speed (Gust) - Wind Dir</p>
+                </div>
+                <p>Click "Get Forecast For Coordinates" to get forecast</p>
+            </div>
+            <a href="https://github.com/mattiaskvist/weather_app" target="_blank">Source Code</a>
+        </div>
     </div>
     <script src="script.js"></script>
 

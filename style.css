@@ -1,1 +1,101 @@
 #map { height: 400px; }
+
+
+.forecast {
+    /* centered but space between */
+    align-items: center;
+    box-sizing: border-box;
+    border: #d6cece 1px solid;
+    background-color: #d2f1f4;
+    border-radius: 5px;
+    padding-bottom: 10px;
+}
+/* Style for the "boxes" */
+.forecast-box {
+    border: 1px solid #000000;
+    padding: 10px;
+    margin: 0.5px auto; /* Center the boxes horizontally */
+    display: inline-block;
+    width: 365px;   
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+/* Clearfix for the forecast container */
+.forecast-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#coordinates {
+    display: flex;
+    flex-direction: row ;
+    /* centered but space between */
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    border: #000000 1px solid;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    padding-left: 5px;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    border: #000000 1px solid;
+    height: 30px;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    justify-content: flex-start;
+}
+
+.search input {
+    margin-left: 5px;
+    /* make more fun */
+    border-radius: 1px;
+}
+
+#coordinates button,
+.search button {
+    margin-left: 5px;
+    /* make more fun */
+    background-color: #39a3ca;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+#coordinates button:hover,
+.search button:hover {
+    background-color: #2c7da0;
+    cursor: pointer;
+}
+
+#coordinates button:active,
+.search button:active {
+    background-color: #2c7da0;
+    box-shadow: 1px #666;
+    transform: translateY(1px);
+}
+
+#coordinates p{
+    margin-right: 10px;
+}
+
+.forecast-container p {
+    margin: 2px;
+}
+
+a {
+    color: #768d96;
+    text-decoration: none;
+}
