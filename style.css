@@ -5,10 +5,23 @@
     /* centered but space between */
     align-items: center;
     box-sizing: border-box;
-    border: #d6cece 1px solid;
+    border: #000000 1px solid;
     background-color: #d2f1f4;
     border-radius: 5px;
     padding-bottom: 10px;
+    justify-content: center;
+}
+
+.forecast h2 {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.forecast a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
 }
 /* Style for the "boxes" */
 .forecast-box {
@@ -24,6 +37,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: large;
+    font-weight: bold;
 }
 
 .forecast-content {
@@ -37,7 +52,7 @@
 }
 
 .forecast-box img{
-    width: 80px;
+    width: 110px;
 }
 
 /* Clearfix for the forecast container */
@@ -67,7 +82,7 @@
     align-items: center;
     box-sizing: border-box;
     border: #000000 1px solid;
-    height: 30px;
+    height: 50px;
     margin-bottom: 2px;
     border-radius: 5px;
     justify-content: flex-start;
@@ -77,23 +92,35 @@
     margin-left: 5px;
     /* make more fun */
     border-radius: 1px;
+    height: 30px;
+    width: 200px; 
+}
+
+.search input::placeholder {
+    color: #646669;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 #coordinates button,
 .search button {
     margin-left: 5px;
     /* make more fun */
-    background-color: #39a3ca;
-    color: white;
+    background-color: #95daf3;
+    color: rgb(0, 0, 0);
     text-align: center;
     text-decoration: none;
     display: inline-block;
     border-radius: 5px;
+    height: fit-content;
+    font-weight: bold;
+    font-size: large;
+    margin-right: 10px;
 }
 
 #coordinates button:hover,
 .search button:hover {
-    background-color: #2c7da0;
+    background-color: #66b3d3;
     cursor: pointer;
 }
 
@@ -106,10 +133,13 @@
 
 #coordinates p{
     margin-right: 10px;
+    font-size: large;
+    font-weight: bold;
 }
 
 .forecast-container p {
     margin: 2px;
+    font-weight: bold;
 }
 
 a {

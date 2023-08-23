@@ -89,11 +89,26 @@ function processWeatherForecast(data) {
     // Remove any existing forecast data
     forecastContainer.innerHTML = ""
 
+    var currentDate = null;
+
     // Loop through each timeSeries object
     data.timeSeries.forEach(function (timeSeries) {
         // Get the valid time for the forecast
         var validTime = new Date(timeSeries.validTime).toLocaleString();
         var formattedValidTime = validTime.slice(0, -3);
+        var currentTime = formattedValidTime.split(" ")[1];
+
+        var currentDay = formattedValidTime.split(" ")[0];
+
+        // If the current day is different from the previous day, add a header
+        if (currentDay !== currentDate) {
+            // Create new box for the day's header
+            var dayBox = document.createElement("div");
+            dayBox.classList.add("forecast-day-box");
+            dayBox.innerHTML = `<h2>${currentDay}</h2>`;
+            forecastContainer.appendChild(dayBox);
+            currentDate = currentDay;
+        }
 
         // Initialize variables to store extracted data
         var temperature, windSpeed, windDirectionDeg, windGustSpeed, weatherSymbol;
@@ -151,7 +166,7 @@ function processWeatherForecast(data) {
         box.classList.add("forecast-box");
         box.innerHTML = `
             <div class="forecast-content"> 
-            <p>${formattedValidTime}</p>
+            <p style="font-size:140%"><strong>${currentTime}</strong></p>
             <p>Temp: ${temperature} °C</p>
             <p>Wind Speed: ${windSpeed} (${windGustSpeed}) m/s</p>
             <p>Wind Dir: ${windDirectionText} (${windDirectionDeg}°)</p>
@@ -165,7 +180,7 @@ function processWeatherForecast(data) {
     // Add time of last update
     var lastUpdated = new Date(data.approvedTime).toLocaleString();
     var formattedLastUpdated = lastUpdated.slice(0, -3);
-    forecastContainer.innerHTML += `<p>Last updated: ${formattedLastUpdated}</p>`;
+    forecastContainer.innerHTML += `<p>Forecast last updated: ${formattedLastUpdated}</p>`;
     forecastContainer.innerHTML += `<p> <a href="https://opendata.smhi.se/apidocs/metfcst/index.html" target="_blank">Source: SMHI Open Data API</a></p>`;
 }
 
