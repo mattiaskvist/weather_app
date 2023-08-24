@@ -125,7 +125,7 @@ function processWeatherForecast(data) {
         }
 
         // Initialize variables to store extracted data
-        var temperature, windSpeed, windDirectionDeg, windGustSpeed, weatherSymbol;
+        var temperature, windSpeed, windDirectionDeg, windGustSpeed, weatherSymbol, precipitation;
 
         // Loop through the parameters to find the ones we want
         timeSeries.parameters.forEach(function (parameter) {
@@ -144,6 +144,9 @@ function processWeatherForecast(data) {
                     break;
                 case "Wsymb2":
                     weatherSymbol = parameter.values[0];
+                    break;
+                case "pmean":
+                    precipitation = parameter.values[0];
                     break;
                 default:
                     // Handle other parameters here
@@ -182,6 +185,7 @@ function processWeatherForecast(data) {
             <div class="forecast-content"> 
             <p style="font-size:140%"><strong>${currentTime}</strong></p>
             <p>Temp: ${temperature} °C</p>
+            <p>Precipitation: ${precipitation} mm/h</p>
             <p>Wind Speed: ${windSpeed} (${windGustSpeed}) m/s</p>
             <p>Wind Dir: ${windDirectionText} (${windDirectionDeg}°)</p>
             </div>
